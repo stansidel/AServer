@@ -1,5 +1,5 @@
 <?php
-mysql_connect('localhost', 'huddle', 'V86cc1Ht') or die('Cannot connect to DB. ' . mysql_error());
+mysql_connect('localhost', 'android', 'GhbdtnAndroid') or die('Cannot connect to DB. ' . mysql_error());
 mysql_select_db('android') or die(mysql_error());
 
 // Reading the required city's name to pass to 2GIS API

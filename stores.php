@@ -1,16 +1,23 @@
 <?php
+/**
+ * Include the common fucntions file
+ */
+include_once 'common.php';
+
 // http://php.net/manual/en/book.outcontrol.php
 if(extension_loaded('zlib'))
 	$t = ob_start('ob_gzhandler');
 mysql_connect('localhost', 'android', 'GhbdtnAndroid') or die('Cannot connect to DB. ' . mysql_error());
 mysql_select_db('android') or die(mysql_error());
 
-$number = $_GET["number"];
-$groupId = mysql_real_escape_string($_GET["groupId"]);
-$cityId = $_GET["cityid"];
+$vars = getPassedVars();
+
+$number = $vars["number"];
+$groupId = mysql_real_escape_string($vars["groupId"]);
+$cityId = $vars["cityid"];
 if(!is_numeric($cityId))
 	die("City id must be provided.");
-$data = $_GET["data"];
+$data = $vars["data"];
 if(!is_numeric($data))
 	$data = 0;
 
@@ -45,8 +52,6 @@ function getLastData($_cityId){
 	$query = "SELECT data from data_versions where city=$_cityId";
 	$result = mysql_query($query) or die($query . "<br>" . mysql_error());
 	$row = mysql_fetch_assoc($result);
-	if(mysql_num_rows($result) == 0)
-		setLastData($_cityId, 1);
 	return mysql_num_rows($result) > 0 ? $row["data"] : 1;
 }
 ?>
